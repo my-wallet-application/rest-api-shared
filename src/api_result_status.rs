@@ -115,6 +115,7 @@ impl ApiResultStatus {
             ApiResultStatus::NotEnoughFundsToReserveWithdrawal => 200,
             ApiResultStatus::WithdrawalNotFound => 200,
             ApiResultStatus::WithdrawIsAlreadyProcessed => 200,
+            ApiResultStatus::CryptoDepositIsNotSupported => 200,
         }
     }
 }
@@ -196,6 +197,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::NotEnoughFundsToReserveWithdrawal => false,
         ApiResultStatus::WithdrawalNotFound => false,
         ApiResultStatus::WithdrawIsAlreadyProcessed => false,
+        ApiResultStatus::CryptoDepositIsNotSupported => false,
     }
 }
 
