@@ -80,6 +80,9 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-23"; description="Payment system is not supported")]
     PaymentSystemIsNotSupported = -23,
 
+    #[http_enum_case(id="-24"; description="Crypto deposit is not supported")]
+    CryptoDepositIsNotSupported = -24,
+
     #[http_enum_case(id="-999"; description="Force Update required")]
     ForceUpdateIsRequired = -999,
 }
