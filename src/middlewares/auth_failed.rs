@@ -6,22 +6,20 @@ use service_sdk::my_http_server;
 
 #[derive(Serialize, Debug, MyHttpObjectStructure)]
 pub struct AuthenticationFailedApiResponse {
-    #[serde(rename = "result")]
-    pub result: ApiResultStatus,
-    #[serde(rename = "description")]
+    pub status: ApiResultStatus,
     pub description: String,
 }
 
 #[derive(Serialize, Debug, MyHttpObjectStructure)]
 pub struct AuthorizationFailedApiResponse {
-    pub result: ApiResultStatus,
+    pub status: ApiResultStatus,
     pub description: String,
 }
 
 impl AuthorizationFailedApiResponse {
-    pub fn new(result: ApiResultStatus, description: String) -> HttpFailResult {
+    pub fn new(status: ApiResultStatus, description: String) -> HttpFailResult {
         let result = AuthorizationFailedApiResponse {
-            result,
+            status,
             description,
         };
 
@@ -41,9 +39,9 @@ impl AuthorizationFailedApiResponse {
 }
 
 impl AuthenticationFailedApiResponse {
-    pub fn new(result: ApiResultStatus, description: String) -> HttpFailResult {
+    pub fn new(status: ApiResultStatus, description: String) -> HttpFailResult {
         let result = AuthenticationFailedApiResponse {
-            result,
+            status,
             description,
         };
 
