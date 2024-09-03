@@ -8,7 +8,7 @@ use crate::{ApiHttpResult, ApiResultStatus};
 pub struct AuthErrorFactoryWl;
 #[derive(Serialize, MyHttpObjectStructure)]
 pub struct AccessClaimRequired {
-    pub result: ApiResultStatus,
+    pub status: ApiResultStatus,
     pub data: String,
 }
 
@@ -19,7 +19,7 @@ impl AuthErrorFactory for AuthErrorFactoryWl {
 
     fn get_not_authorized(&self, claim_name: String) -> my_http_server::HttpFailResult {
         let content = AccessClaimRequired {
-            result: ApiResultStatus::AccessClaimRequired,
+            status: ApiResultStatus::AccessClaimRequired,
             data: claim_name,
         };
         my_http_server::HttpFailResult::new(

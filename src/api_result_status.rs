@@ -122,19 +122,19 @@ impl ApiResultStatus {
 
 #[derive(Serialize, MyHttpObjectStructure)]
 pub struct ApiHttpResult {
-    pub result: ApiResultStatus,
+    pub status: ApiResultStatus,
 }
 
 impl Into<HttpFailResult> for ApiHttpResult {
     fn into(self) -> HttpFailResult {
-        self.result.into()
+        self.status.into()
     }
 }
 
 impl Into<HttpFailResult> for ApiResultStatus {
     fn into(self) -> HttpFailResult {
         let status_code = self.get_status_code();
-        let result = ApiHttpResult { result: self };
+        let result = ApiHttpResult { status: self };
 
         let write_to_telemetry = write_to_telemetry(&self);
 
@@ -150,15 +150,15 @@ impl Into<HttpFailResult> for ApiResultStatus {
 
 #[derive(Serialize, MyHttpObjectStructure)]
 pub struct ApiHttpResultWithData<TData: Serialize + DataTypeProvider> {
-    pub result: ApiResultStatus,
+    pub status: ApiResultStatus,
     pub data: Option<TData>,
 }
 
 impl<TData: Serialize + DataTypeProvider> Into<HttpFailResult> for ApiHttpResultWithData<TData> {
     fn into(self) -> HttpFailResult {
-        let status_code = self.result.get_status_code();
+        let status_code = self.status.get_status_code();
 
-        let write_to_telemetry = write_to_telemetry(&self.result);
+        let write_to_telemetry = write_to_telemetry(&self.status);
 
         HttpFailResult::new(
             my_http_server::WebContentType::Json,
