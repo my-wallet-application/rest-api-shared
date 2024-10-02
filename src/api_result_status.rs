@@ -66,7 +66,6 @@ impl ApiResultStatus {
             ApiResultStatus::UserNotFound => 200,
             ApiResultStatus::OldPasswordIsWrong => 200,
             ApiResultStatus::WrongFileExtension => 200,
-            ApiResultStatus::FileNotFound => 200,
             ApiResultStatus::PersonalDataNotValid => 200,
 
             ApiResultStatus::AccessTokenExpired => 401,
@@ -141,7 +140,6 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::UserNotFound => false,
         ApiResultStatus::OldPasswordIsWrong => false,
         ApiResultStatus::WrongFileExtension => false,
-        ApiResultStatus::FileNotFound => false,
         ApiResultStatus::PersonalDataNotValid => false,
 
         ApiResultStatus::AccessTokenExpired => false,
