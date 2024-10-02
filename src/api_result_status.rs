@@ -32,8 +32,8 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-7"; description="Personal data is not valid")]
     PersonalDataNotValid = -7,
 
-    #[http_enum_case(id="-8"; description="System error")]
-    SystemError = -8,
+    #[http_enum_case(id="-8"; description="Not enough funds")]
+    NotEnoughFunds = -8,
 
     #[http_enum_case(id="-9"; description="AccessTokenExpired")]
     AccessTokenExpired = -9,
@@ -44,44 +44,14 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-11"; description="CountryRestriction")]
     CountryIsRestricted = -11,
 
-    #[http_enum_case(id="-12"; description="Kyc required for this operation")]
-    KycRequired = -12,
+    #[http_enum_case(id="-12"; description="Swap quote is expired")]
+    SwapQuoteIsExpired = -12,
 
-    #[http_enum_case(id="-13"; description="Recaptcha verification error")]
-    RecaptchaVerificationError = -13,
+    #[http_enum_case(id="-13"; description="No liquidity")]
+    NoLiquidity = -13,
 
-    #[http_enum_case(id="-14"; description="Not enough funds to reserve withdrawal")]
-    NotEnoughFundsToReserveWithdrawal = -14,
-
-    #[http_enum_case(id="-15"; description="Withdraw request is not found")]
-    WithdrawalNotFound = -15,
-
-    #[http_enum_case(id="-16"; description="Withdraw request is already processed")]
-    WithdrawIsAlreadyProcessed = -16,
-
-    #[http_enum_case(id="-17"; description="AccessTokenInvalid")]
-    AccessTokenInvalid = -17,
-
-    #[http_enum_case(id="-18"; description="AccessClaimRequired")]
-    AccessClaimRequired = -18,
-
-    #[http_enum_case(id="-19"; description="Invalid reset code")]
-    InvalidResetCode = -19,
-
-    #[http_enum_case(id="-20"; description="Operation can be executed only from KycNotPassed status")]
-    KycNoPassedStatusOnly = -20,
-
-    #[http_enum_case(id="-21"; description="Account not found")]
-    AccountNotFound = -21,
-
-    #[http_enum_case(id="-22"; description="Deposit request is failed")]
-    DepositFailed = -22,
-
-    #[http_enum_case(id="-23"; description="Payment system is not supported")]
-    PaymentSystemIsNotSupported = -23,
-
-    #[http_enum_case(id="-24"; description="Crypto deposit is not supported")]
-    CryptoDepositIsNotSupported = -24,
+    #[http_enum_case(id="-998"; description="Access claim required")]
+    AccessClaimRequired = -998,
 
     #[http_enum_case(id="-999"; description="Force Update required")]
     ForceUpdateIsRequired = -999,
@@ -98,24 +68,16 @@ impl ApiResultStatus {
             ApiResultStatus::WrongFileExtension => 200,
             ApiResultStatus::FileNotFound => 200,
             ApiResultStatus::PersonalDataNotValid => 200,
-            ApiResultStatus::SystemError => 200,
+
             ApiResultStatus::AccessTokenExpired => 401,
-            ApiResultStatus::KycRequired => 401,
+
             ApiResultStatus::TechnicalError => 200,
             ApiResultStatus::CountryIsRestricted => 200,
-            ApiResultStatus::AccessTokenInvalid => 401,
-            ApiResultStatus::AccessClaimRequired => 403,
             ApiResultStatus::ForceUpdateIsRequired => 200,
-            ApiResultStatus::InvalidResetCode => 200,
-            ApiResultStatus::KycNoPassedStatusOnly => 200,
-            ApiResultStatus::AccountNotFound => 200,
-            ApiResultStatus::DepositFailed => 200,
-            ApiResultStatus::PaymentSystemIsNotSupported => 200,
-            ApiResultStatus::RecaptchaVerificationError => 200,
-            ApiResultStatus::NotEnoughFundsToReserveWithdrawal => 200,
-            ApiResultStatus::WithdrawalNotFound => 200,
-            ApiResultStatus::WithdrawIsAlreadyProcessed => 200,
-            ApiResultStatus::CryptoDepositIsNotSupported => 200,
+            ApiResultStatus::NotEnoughFunds => 200,
+            ApiResultStatus::SwapQuoteIsExpired => 200,
+            ApiResultStatus::NoLiquidity => 200,
+            ApiResultStatus::AccessClaimRequired => 403,
         }
     }
 }
@@ -180,24 +142,16 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::WrongFileExtension => false,
         ApiResultStatus::FileNotFound => false,
         ApiResultStatus::PersonalDataNotValid => false,
-        ApiResultStatus::SystemError => true,
+
         ApiResultStatus::AccessTokenExpired => false,
         ApiResultStatus::TechnicalError => true,
         ApiResultStatus::CountryIsRestricted => false,
-        ApiResultStatus::KycRequired => false,
-        ApiResultStatus::RecaptchaVerificationError => true,
-        ApiResultStatus::AccessTokenInvalid => false,
-        ApiResultStatus::AccessClaimRequired => false,
-        ApiResultStatus::InvalidResetCode => false,
-        ApiResultStatus::KycNoPassedStatusOnly => false,
-        ApiResultStatus::AccountNotFound => false,
-        ApiResultStatus::DepositFailed => false,
-        ApiResultStatus::PaymentSystemIsNotSupported => false,
+
         ApiResultStatus::ForceUpdateIsRequired => false,
-        ApiResultStatus::NotEnoughFundsToReserveWithdrawal => false,
-        ApiResultStatus::WithdrawalNotFound => false,
-        ApiResultStatus::WithdrawIsAlreadyProcessed => false,
-        ApiResultStatus::CryptoDepositIsNotSupported => false,
+        ApiResultStatus::NotEnoughFunds => false,
+        ApiResultStatus::SwapQuoteIsExpired => false,
+        ApiResultStatus::NoLiquidity => false,
+        ApiResultStatus::AccessClaimRequired => false,
     }
 }
 
