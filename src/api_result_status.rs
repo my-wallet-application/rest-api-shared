@@ -26,8 +26,8 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-5"; description="Wrong file extension")]
     WrongFileExtension = -5,
 
-    #[http_enum_case(id="-6"; description="File not found")]
-    FileNotFound = -6,
+    #[http_enum_case(id="-6"; description="Crypto deposit is not supported")]
+    CryptoDepositIsNotSupported = -6,
 
     #[http_enum_case(id="-7"; description="Personal data is not valid")]
     PersonalDataNotValid = -7,
@@ -49,9 +49,6 @@ pub enum ApiResultStatus {
 
     #[http_enum_case(id="-13"; description="No liquidity")]
     NoLiquidity = -13,
-
-    #[http_enum_case(id="-14"; description="Crypto deposit is not supported")]
-    CryptoDepositIsNotSupported = -14,
 
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
