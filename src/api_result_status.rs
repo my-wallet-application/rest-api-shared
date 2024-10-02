@@ -50,6 +50,9 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-13"; description="No liquidity")]
     NoLiquidity = -13,
 
+    #[http_enum_case(id="-14"; description="Crypto deposit is not supported")]
+    CryptoDepositIsNotSupported = -14,
+
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
 
@@ -78,6 +81,7 @@ impl ApiResultStatus {
             ApiResultStatus::SwapQuoteIsExpired => 200,
             ApiResultStatus::NoLiquidity => 200,
             ApiResultStatus::AccessClaimRequired => 403,
+            ApiResultStatus::CryptoDepositIsNotSupported => 200,
         }
     }
 }
@@ -152,6 +156,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::SwapQuoteIsExpired => false,
         ApiResultStatus::NoLiquidity => false,
         ApiResultStatus::AccessClaimRequired => false,
+        ApiResultStatus::CryptoDepositIsNotSupported => false,
     }
 }
 
