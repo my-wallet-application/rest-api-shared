@@ -19,12 +19,11 @@ impl HttpServerMiddleware for AuthMiddleware {
     async fn handle_request(
         &self,
         ctx: &mut HttpContext,
-        get_next: &mut HttpServerRequestFlow,
-    ) -> Result<HttpOkResult, HttpFailResult> {
+    ) -> Option<Result<HttpOkResult, HttpFailResult>> {
         let session_token = ctx.get_session_token();
 
         if session_token.is_none() {
-            return get_next.next(ctx).await;
+            return None;
         }
 
         let token_entity = self
@@ -33,13 +32,13 @@ impl HttpServerMiddleware for AuthMiddleware {
             .await;
 
         if token_entity.is_none() {
-            return get_next.next(ctx).await;
+            return None;
         }
 
         ctx.credentials = Some(Box::new(TradingPlatformRequestCredentials::new(
             token_entity.unwrap(),
         )));
 
-        get_next.next(ctx).await
+        None
     }
 }
