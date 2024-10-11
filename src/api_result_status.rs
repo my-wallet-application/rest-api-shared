@@ -11,35 +11,35 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="0"; description="Operations was successful")]
     Ok,
 
-    #[http_enum_case(id="-1"; description="Invalid username or password")]
-    InvalidUserNameOrPassword = -1,
+    #[http_enum_case(id="-1"; description="AccessTokenInvalid")]
+    TokenIsInvalid = -1,
 
-    #[http_enum_case(id="-2"; description="User exists")]
-    UserExists = -2,
+    #[http_enum_case(id="-2"; description="AccessTokenExpired")]
+    AccessTokenExpired = -2,
 
-    #[http_enum_case(id="-3"; description="User not found")]
-    UserNotFound = -3,
+    #[http_enum_case(id="-3"; description="Invalid username or password")]
+    InvalidUserNameOrPassword = -3,
 
-    #[http_enum_case(id="-4"; description="Old password is wrong")]
-    OldPasswordIsWrong = -4,
+    #[http_enum_case(id="-4"; description="User exists")]
+    UserExists = -4,
 
-    #[http_enum_case(id="-5"; description="Wrong file extension")]
-    WrongFileExtension = -5,
+    #[http_enum_case(id="-5"; description="User not found")]
+    UserNotFound = -5,
 
-    #[http_enum_case(id="-6"; description="Crypto deposit is not supported")]
-    CryptoDepositIsNotSupported = -6,
+    #[http_enum_case(id="-6"; description="Old password is wrong")]
+    OldPasswordIsWrong = -6,
 
-    #[http_enum_case(id="-7"; description="Personal data is not valid")]
-    PersonalDataNotValid = -7,
+    #[http_enum_case(id="-7"; description="Wrong file extension")]
+    WrongFileExtension = -7,
 
-    #[http_enum_case(id="-8"; description="Not enough funds")]
-    NotEnoughFunds = -8,
+    #[http_enum_case(id="-8"; description="Crypto deposit is not supported")]
+    CryptoDepositIsNotSupported = -8,
 
-    #[http_enum_case(id="-9"; description="AccessTokenExpired")]
-    AccessTokenExpired = -9,
+    #[http_enum_case(id="-9"; description="Personal data is not valid")]
+    PersonalDataNotValid = -9,
 
-    #[http_enum_case(id="-10"; description="TechnicalError")]
-    TechnicalError = -10,
+    #[http_enum_case(id="-10"; description="Not enough funds")]
+    NotEnoughFunds = -10,
 
     #[http_enum_case(id="-11"; description="CountryRestriction")]
     CountryIsRestricted = -11,
@@ -49,6 +49,9 @@ pub enum ApiResultStatus {
 
     #[http_enum_case(id="-13"; description="No liquidity")]
     NoLiquidity = -13,
+
+    #[http_enum_case(id="-14"; description="Recaptcha verification fail")]
+    RecaptchaVerificationFail = 14,
 
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
@@ -69,8 +72,9 @@ impl ApiResultStatus {
             ApiResultStatus::PersonalDataNotValid => 200,
 
             ApiResultStatus::AccessTokenExpired => 401,
+            ApiResultStatus::TokenIsInvalid => 401,
 
-            ApiResultStatus::TechnicalError => 200,
+            ApiResultStatus::RecaptchaVerificationFail => 401,
             ApiResultStatus::CountryIsRestricted => 200,
             ApiResultStatus::ForceUpdateIsRequired => 200,
             ApiResultStatus::NotEnoughFunds => 200,
@@ -143,7 +147,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::PersonalDataNotValid => false,
 
         ApiResultStatus::AccessTokenExpired => false,
-        ApiResultStatus::TechnicalError => true,
+        ApiResultStatus::RecaptchaVerificationFail => false,
         ApiResultStatus::CountryIsRestricted => false,
 
         ApiResultStatus::ForceUpdateIsRequired => false,
@@ -152,6 +156,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::NoLiquidity => false,
         ApiResultStatus::AccessClaimRequired => false,
         ApiResultStatus::CryptoDepositIsNotSupported => false,
+        ApiResultStatus::TokenIsInvalid => false,
     }
 }
 
