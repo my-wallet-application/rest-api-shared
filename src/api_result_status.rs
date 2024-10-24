@@ -51,7 +51,7 @@ pub enum ApiResultStatus {
     NoLiquidity = -13,
 
     #[http_enum_case(id="-14"; description="Recaptcha verification fail")]
-    RecaptchaVerificationFail = 14,
+    RecaptchaVerificationFail = -14,
 
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
