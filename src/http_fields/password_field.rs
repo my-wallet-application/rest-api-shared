@@ -1,4 +1,4 @@
-use rust_extensions::StrOrString;
+use service_sdk::rust_extensions::{self, StrOrString};
 
 service_sdk::macros::use_my_http_server!();
 

@@ -1,6 +1,6 @@
 service_sdk::macros::use_my_http_server!();
 use email_address::EmailAddress;
-use rust_extensions::StrOrString;
+use service_sdk::rust_extensions::{self, StrOrString};
 
 #[http_input_field]
 pub struct EmailHttpField(String);
