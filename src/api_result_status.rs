@@ -53,6 +53,9 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-14"; description="Recaptcha verification fail")]
     RecaptchaVerificationFail = -14,
 
+    #[http_enum_case(id="-15"; description="Exchange between assets is disabled")]
+    ExchangeBetweenAssetsIsDisabled = -15,
+
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
 
@@ -82,6 +85,7 @@ impl ApiResultStatus {
             ApiResultStatus::NoLiquidity => 200,
             ApiResultStatus::AccessClaimRequired => 403,
             ApiResultStatus::CryptoDepositIsNotSupported => 200,
+            ApiResultStatus::ExchangeBetweenAssetsIsDisabled => 200,
         }
     }
 }
@@ -157,6 +161,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::AccessClaimRequired => false,
         ApiResultStatus::CryptoDepositIsNotSupported => false,
         ApiResultStatus::TokenIsInvalid => false,
+        ApiResultStatus::ExchangeBetweenAssetsIsDisabled => true,
     }
 }
 
