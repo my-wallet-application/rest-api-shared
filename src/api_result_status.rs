@@ -44,8 +44,8 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-11"; description="CountryRestriction")]
     CountryIsRestricted = -11,
 
-    #[http_enum_case(id="-12"; description="Swap quote is expired")]
-    SwapQuoteIsExpired = -12,
+    #[http_enum_case(id="-12"; description="Exchange quote is expired")]
+    ExchangeQuoteIsExpired = -12,
 
     #[http_enum_case(id="-13"; description="No liquidity")]
     NoLiquidity = -13,
@@ -81,7 +81,7 @@ impl ApiResultStatus {
             ApiResultStatus::CountryIsRestricted => 200,
             ApiResultStatus::ForceUpdateIsRequired => 200,
             ApiResultStatus::NotEnoughFunds => 200,
-            ApiResultStatus::SwapQuoteIsExpired => 200,
+            ApiResultStatus::ExchangeQuoteIsExpired => 200,
             ApiResultStatus::NoLiquidity => 200,
             ApiResultStatus::AccessClaimRequired => 403,
             ApiResultStatus::CryptoDepositIsNotSupported => 200,
@@ -156,7 +156,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
 
         ApiResultStatus::ForceUpdateIsRequired => false,
         ApiResultStatus::NotEnoughFunds => false,
-        ApiResultStatus::SwapQuoteIsExpired => false,
+        ApiResultStatus::ExchangeQuoteIsExpired => false,
         ApiResultStatus::NoLiquidity => false,
         ApiResultStatus::AccessClaimRequired => false,
         ApiResultStatus::CryptoDepositIsNotSupported => false,
