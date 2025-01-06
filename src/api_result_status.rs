@@ -56,6 +56,9 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-15"; description="Exchange between assets is disabled")]
     ExchangeBetweenAssetsIsDisabled = -15,
 
+    #[http_enum_case(id="-16"; description="Password recovery code is invalid")]
+    PasswordRecoveryCodeIsInvalid = -16,
+
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
 
@@ -86,6 +89,7 @@ impl ApiResultStatus {
             ApiResultStatus::AccessClaimRequired => 403,
             ApiResultStatus::CryptoDepositIsNotSupported => 200,
             ApiResultStatus::ExchangeBetweenAssetsIsDisabled => 200,
+            ApiResultStatus::PasswordRecoveryCodeIsInvalid => 200,
         }
     }
 }
@@ -162,6 +166,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::CryptoDepositIsNotSupported => false,
         ApiResultStatus::TokenIsInvalid => false,
         ApiResultStatus::ExchangeBetweenAssetsIsDisabled => true,
+        ApiResultStatus::PasswordRecoveryCodeIsInvalid => false,
     }
 }
 
