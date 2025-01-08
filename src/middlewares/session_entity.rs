@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use service_sdk::my_no_sql_sdk;
+use service_sdk::{my_no_sql_sdk, rust_extensions::date_time::DateTimeAsMicroseconds};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SessionClaim {
@@ -26,5 +26,28 @@ impl SessionEntity {
 
     pub fn get_session_token(&self) -> &str {
         &self.row_key
+    }
+
+    pub fn extend_expiration(&mut self, new_expiration: DateTimeAsMicroseconds) {
+        self.expires = new_expiration.to_rfc3339();
+    }
+
+    pub fn set_claim(&mut self, name: String, expires: DateTimeAsMicroseconds) {
+        if self.claims.is_none() {
+            self.claims = Some(vec![SessionClaim {
+                name,
+                expires: expires.unix_microseconds,
+            }]);
+            return;
+        }
+
+        let claims = self.claims.as_mut().unwrap();
+
+        claims.retain(|claim| claim.name != name);
+
+        claims.push(SessionClaim {
+            name,
+            expires: expires.unix_microseconds,
+        });
     }
 }
