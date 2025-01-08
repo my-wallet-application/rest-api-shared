@@ -59,6 +59,9 @@ pub enum ApiResultStatus {
     #[http_enum_case(id="-16"; description="Password recovery code is invalid")]
     PasswordRecoveryCodeIsInvalid = -16,
 
+    #[http_enum_case(id="-17"; description="2Fa code is invalid")]
+    TwoFaCodeIsInvalid = -17,
+
     #[http_enum_case(id="-998"; description="Access claim required")]
     AccessClaimRequired = -998,
 
@@ -90,6 +93,7 @@ impl ApiResultStatus {
             ApiResultStatus::CryptoDepositIsNotSupported => 200,
             ApiResultStatus::ExchangeBetweenAssetsIsDisabled => 200,
             ApiResultStatus::PasswordRecoveryCodeIsInvalid => 200,
+            ApiResultStatus::TwoFaCodeIsInvalid => 200,
         }
     }
 }
@@ -167,6 +171,7 @@ fn write_to_telemetry(from: &ApiResultStatus) -> bool {
         ApiResultStatus::TokenIsInvalid => false,
         ApiResultStatus::ExchangeBetweenAssetsIsDisabled => true,
         ApiResultStatus::PasswordRecoveryCodeIsInvalid => false,
+        ApiResultStatus::TwoFaCodeIsInvalid => false,
     }
 }
 
