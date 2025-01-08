@@ -28,7 +28,7 @@ impl HttpServerMiddleware for AuthMiddleware {
 
         let token_entity = self
             .sessions_reader
-            .get_entity(&SessionEntity::get_pk(), session_token.unwrap())
+            .get_entity(SessionEntity::PARTITION_KEY, session_token.unwrap())
             .await;
 
         if token_entity.is_none() {

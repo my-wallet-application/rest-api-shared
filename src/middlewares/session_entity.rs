@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 use service_sdk::my_no_sql_sdk;
 
-pub const SESSION_PARTITION_KEY_VALUE: &str = "t";
-
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct SessionClaim {
     #[serde(rename = "Name")]
@@ -24,9 +22,7 @@ pub struct SessionEntity {
 }
 
 impl SessionEntity {
-    pub fn get_pk() -> String {
-        SESSION_PARTITION_KEY_VALUE.to_string()
-    }
+    pub const PARTITION_KEY: &'static str = "t";
 
     pub fn get_session_token(&self) -> &str {
         &self.row_key
