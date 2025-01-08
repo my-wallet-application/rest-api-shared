@@ -13,15 +13,12 @@ pub struct AuthenticationFailedApiResponse {
 #[derive(Serialize, Debug, MyHttpObjectStructure)]
 pub struct AuthorizationFailedApiResponse {
     pub status: ApiResultStatus,
-    pub description: String,
+    pub claim: String,
 }
 
 impl AuthorizationFailedApiResponse {
-    pub fn new(status: ApiResultStatus, description: String) -> HttpFailResult {
-        let result = AuthorizationFailedApiResponse {
-            status,
-            description,
-        };
+    pub fn new(status: ApiResultStatus, claim: String) -> HttpFailResult {
+        let result = AuthorizationFailedApiResponse { status, claim };
 
         let content = serde_json::to_vec(&result).unwrap();
         HttpFailResult::new(
