@@ -19,6 +19,8 @@ pub struct SessionEntity {
     pub expires: String,
     #[serde(rename = "Claims")]
     pub claims: Option<Vec<SessionClaim>>,
+    pub country: Option<String>,
+    pub ip: Option<String>,
 }
 
 impl SessionEntity {
