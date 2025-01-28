@@ -21,6 +21,7 @@ pub struct SessionEntity {
     pub claims: Option<Vec<SessionClaim>>,
     pub country: Option<String>,
     pub ip: Option<String>,
+    pub user_agent: Option<String>,
 }
 
 impl SessionEntity {
