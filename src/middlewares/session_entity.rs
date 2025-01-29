@@ -5,7 +5,8 @@ use service_sdk::{my_no_sql_sdk, rust_extensions::date_time::DateTimeAsMicroseco
 pub struct SessionClaim {
     pub name: String,
     pub expires: i64,
-    pub ip: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub ip: Option<String>,
 }
 
 #[service_sdk::my_no_sql_sdk::macros::my_no_sql_entity("sessionsentites")]
@@ -18,8 +19,11 @@ pub struct SessionEntity {
     pub expires: String,
     #[serde(rename = "Claims")]
     pub claims: Option<Vec<SessionClaim>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub country: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub ip: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub user_agent: Option<String>,
 }
 
@@ -34,7 +38,7 @@ impl SessionEntity {
         self.expires = new_expiration.to_rfc3339();
     }
 
-    pub fn set_claim(&mut self, name: String, expires: DateTimeAsMicroseconds, ip: String) {
+    pub fn set_claim(&mut self, name: String, expires: DateTimeAsMicroseconds, ip: Option<String>) {
         if self.claims.is_none() {
             self.claims = Some(vec![SessionClaim {
                 name,
