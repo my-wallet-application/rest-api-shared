@@ -9,14 +9,13 @@ pub struct SessionClaim {
     pub ip: Option<String>,
 }
 
-#[service_sdk::my_no_sql_sdk::macros::my_no_sql_entity("sessionsentites")]
+#[service_sdk::my_no_sql_sdk::macros::my_no_sql_entity(table_name: "sessionsentites", with_expires: true)]
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct SessionEntity {
     #[serde(rename = "TraderId")]
     pub trader_id: String,
-    #[serde(rename = "Expires")]
-    pub expires: String,
+
     #[serde(rename = "Claims")]
     pub claims: Option<Vec<SessionClaim>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -35,7 +34,7 @@ impl SessionEntity {
     }
 
     pub fn extend_expiration(&mut self, new_expiration: DateTimeAsMicroseconds) {
-        self.expires = new_expiration.to_rfc3339();
+        self.expires = new_expiration.into();
     }
 
     pub fn set_claim(&mut self, name: String, expires: DateTimeAsMicroseconds, ip: Option<String>) {
